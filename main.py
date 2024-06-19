@@ -28,7 +28,7 @@ for filepath in filepaths:
     pdf.set_text_color(80, 80, 80)
     pdf.cell(w=30, h=8, txt=str(columns[0]), border=1)
     pdf.cell(w=70, h=8, txt=str(columns[1]), border=1)
-    pdf.cell(w=30, h=8, txt=str(columns[2]), border=1)
+    pdf.cell(w=31, h=8, txt=str(columns[2]), border=1)
     pdf.cell(w=30, h=8, txt=str(columns[3]), border=1)
     pdf.cell(w=30, h=8, txt=str(columns[4]), border=1, ln=1)
 
@@ -38,10 +38,25 @@ for filepath in filepaths:
         pdf.set_text_color(80, 80, 80)
         pdf.cell(w=30, h=8, txt=str(row["product_id"]), border=1)
         pdf.cell(w=70, h=8, txt=str(row["product_name"]), border=1)
-        pdf.cell(w=30, h=8, txt=str(row["amount_purchased"]), border=1)
+        pdf.cell(w=31, h=8, txt=str(row["amount_purchased"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["price_per_unit"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["total_price"]), border=1, ln=1)
+    total_sum = df["total_price"].sum()
+    pdf.set_font(family="Times", size=10)
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=70, h=8, txt="", border=1)
+    pdf.cell(w=31, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt="", border=1)
+    pdf.cell(w=30, h=8, txt=str(total_sum), border=1, ln=1)
 
+    # Add total sum sentance
+    pdf.set_font(family="Times", size=11, style="B")
+    pdf.cell(w=30, h=8, txt=f"The total price is {total_sum}", ln=1)
 
+    # Add company and logo
+    pdf.set_font(family="Times", size=15, style="B")
+    pdf.cell(w=65, h=8, txt=f"MahalakshmiGeneralStore",)
+    pdf.image("images.png", w=10)
 
     pdf.output(f"PDFs/{filename}.pdf")
